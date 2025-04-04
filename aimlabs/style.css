@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent scrollbars */
+    background-color: #282c34; /* Dark background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: none; /* Hide default cursor */
+    overflow: hidden; /* Keep targets inside */
+    background: linear-gradient(135deg, #3a3f4a 0%, #282c34 100%); /* Subtle gradient */
+    transition: transform 0.05s ease-out; /* For camera shake */
+}
+
+#game-container.shake {
+    animation: shake 0.08s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 2px, 0); }
+  40%, 60% { transform: translate3d(3px, -2px, 0); }
+}
+
+
+.target {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transition: transform 0.1s ease-out, opacity 0.2s ease-out, top 0.1s linear, left 0.1s linear; /* Smooth transitions */
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Target Color Variations */
+.target-blue { background-color: #00aaff; }
+.target-red { background-color: #ff4444; }
+.target-green { background-color: #44ff88; }
+
+/* Target Hit Animation */
+.target.hit {
+    transform: scale(1.2);
+    opacity: 0;
+}
+
+/* Target Spawn Animation */
+.target.spawn {
+    transform: scale(0.5);
+    opacity: 0;
+}
+
+
+#crosshair {
+    position: fixed; /* Keep centered regardless of scroll */
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Allow clicking through */
+    z-index: 1000; /* Ensure it's on top */
+}
+
+.ch-v, .ch-h {
+    position: absolute;
+    background-color: #ffcc00; /* Bright yellow crosshair */
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
+}
+
+.ch-v { /* Vertical line */
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ch-h { /* Horizontal line */
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#ui {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 900;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#ui div {
+    margin-bottom: 5px;
+}
+#ui div:last-child {
+    margin-bottom: 0;
+}
+
+#instructions {
+    font-size: 12px;
+    opacity: 0.7;
+}
